@@ -345,6 +345,8 @@ HRESULT DeckLinkCaptureDelegate::VideoInputFrameArrived(
                     frameCount,
                     videoFrame->GetRowBytes() * videoFrame->GetHeight(),
                     (double)qsize / 1024 / 1024);
+                    //fix issue with not releasing queue on pipe:1
+                    avpacket_queue_flush(&queue);                    
         }
 
         videoFrame->GetBytes(&frameBytes);
